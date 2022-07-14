@@ -34,19 +34,33 @@ async function getAvailableFlavours() {
         const data = await response.json();
         return data["flavours"];
     } catch (error) {
-        console.log(error);
-        return [];
+        throw "Unable to access flavour list!";
     }
     
 }
 
 async function updateFlavourDropdown() {
 
-    const flavours = await getAvailableFlavours();
+    try {
+        const flavours = await getAvailableFlavours();
 
-    const options = flavours.map(o => makeFlavourOption(o));
+        const options = flavours.map(o => makeFlavourOption(o));
 
-    const dropdown = document.getElementById("flavour");
+        const dropdown = document.getElementById("flavour");
 
-    dropdown.replaceChildren(...options);
+        dropdown.replaceChildren(...options);
+    } catch (error) {
+        alert(error);
+    }
+    
+}
+
+if (typeof exports != 'undefined') {
+    module.exports = {
+        makeOrderElement,
+        makeFlavourOption,
+        orderIceCream,
+        getAvailableFlavours,
+        updateFlavourDropdown
+    }
 }
