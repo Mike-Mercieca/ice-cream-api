@@ -10,11 +10,11 @@ describe("API", () => {
         api = app.listen(3030);
     })
 
-    afterAll(() => {
-        api.close();
+    afterAll( (done) => {
+        api.close(done);
     })
 
-    it("Responds to a GET reequest at / with a 200 status", () => {
-        request(api).get("/").expect(200)
+    it("Responds to a GET request at / with a 200 status", (done) => {
+        request(api).get("/").expect(200, done);
     })
 })
